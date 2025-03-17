@@ -1,0 +1,47 @@
+Auto Clicker - 0.2 cps
+cost: 30 clicks
++ 5% per 1 bought
+Augments: ...faster, annoying
+
+Curious sibling - 1 cps
+1500 clicks
++ 5% per 1 bought
+Augments: Addiction, Hyperactivity
+
+Person With ADHD - 10 cps
+5000 clicks
++ 10% per 1 bought
+augments: tourettes, fidgety
+
+Twice as many pens! - x2 click power
+15,000 clicks
++ 50% per 1 bought
+augments: +5% clicking power, +10% clicking power
+
+ultra fast gamer - 100 cps
+75,000 clicks
++ 10% per 1 bought
+
+laser machine - 1,000 cps
+5M clicks
++ 5% per 1 bought
+
+.ahk file - 15,000 cps
+50M clicks
++ 10% per 1 bought
+
+click squared - square clicking power
+1B clicks
++150% per 1 bought
+
+5090 - 1M cps
+1B clicks
++ 10% per 1 bought
+
+UFOs - 25M cps
+50B clicks
++15% per 1 bought
+
+Galactic imports -  500M cps
+500B clicks
++15% per 1 bought

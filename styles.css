@@ -36,7 +36,7 @@ body {
     background-position: center center;
     aspect-ratio: 3/10;
     height: 50%;
-    
+    user-select: none;
 }
 #clicker:active {
     transform: scale(0.95);
@@ -54,9 +54,9 @@ body {
     margin-bottom: 20px;
     border-radius: 4px;
     padding: 10px;
-    font-size: 18px;
-    text-align: left;
+    font-size: 14px;
     cursor: pointer;
+    user-select: none;
 }
 .upgrade:disabled {
     cursor: not-allowed;
@@ -67,4 +67,22 @@ body {
 }
 h2 {
     text-wrap: nowrap;
+}
+.info {
+    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.upgrade-head {
+    text-align: left;
+    font-size: 18px;
+}
+.cost {
+    text-align: left;
+    width: 100%;
+}
+.cps {
+    text-align: right;
+    width: 100%;
 }
