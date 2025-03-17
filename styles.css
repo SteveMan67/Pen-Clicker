@@ -1,0 +1,70 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    background-color: #6e7d96;
+    height: 100%;
+    overflow: hidden;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow: hidden;
+}
+.click, .upgrades {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.click {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.click * {
+    margin: auto;
+}
+#clicker {
+    background: none;
+    border: none;
+    cursor: pointer;
+    background-image: url(./pen.webp);
+    background-size: cover;
+    background-position: center center;
+    aspect-ratio: 3/10;
+    height: 50%;
+    
+}
+#clicker:active {
+    transform: scale(0.95);
+}
+.upgrades {
+    border-left: 5px solid black;
+    padding: 20px;
+    overflow: scroll;
+}
+.upgrade {
+    width: 100%;
+    background: transparent;
+    border: 3px solid black;
+    color: black;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+}
+.upgrade:disabled {
+    cursor: not-allowed;
+    opacity: 0.50;
+}
+.upgrades {
+    list-style-type: none;
+}
+h2 {
+    text-wrap: nowrap;
+}
