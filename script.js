@@ -12,6 +12,7 @@ let autoClicker = {
     cps: 0.2,
     costMultiplier: 1.05,
     clickMultiplier: 0,
+    visible: true
 }
 let curiousSibling = {
     button: document.getElementById("curious-sibling"),
@@ -21,6 +22,7 @@ let curiousSibling = {
     cps: 1,
     costMultiplier: 1.05,
     clickMultiplier: 0,
+    visible: false
 }
 let personWithAdhd = {
     button: document.getElementById("personWithAdhd"),
@@ -30,6 +32,7 @@ let personWithAdhd = {
     cps: 7.5,
     costMultiplier: 1.10,
     clickMultiplier: 0,
+    visible: false
 }
 let twiceThePens = {
     button: document.getElementById("twice-as-many-pens"),
@@ -39,6 +42,7 @@ let twiceThePens = {
     cps: 0,
     costMultiplier: 1.5,
     clickMultiplier: 2,
+    visible: false
 }
 let ultraFastGamer = {
     button: document.getElementById("ultra-fast-gamer"),
@@ -48,6 +52,7 @@ let ultraFastGamer = {
     cps: 100,
     costMultiplier: 1.1,
     clickMultiplier: 0,
+    visible: false
 }
 let laserMachine = {
     button: document.getElementById("laser-machine"),
@@ -57,6 +62,7 @@ let laserMachine = {
     cps: 1000,
     costMultiplier: 1.05,
     clickMultiplier: 0,
+    visible: false
 }
 let ahkFile = {
     button: document.getElementById("ahk-file"),
@@ -66,6 +72,7 @@ let ahkFile = {
     cps: 15000,
     costMultiplier: 1.1,
     clickMultiplier: 0,
+    visible: false
 }
 let clickSquared = {
     button: document.getElementById("click-squared"),
@@ -75,6 +82,7 @@ let clickSquared = {
     cps: 0,
     costMultiplier: 2.5,
     clickMultiplier: 0,
+    visible: false
 }
 let fiftyNinety = {
     button: document.getElementById("5090"),
@@ -84,6 +92,7 @@ let fiftyNinety = {
     cps: 1000000,
     costMultiplier: 1.1,
     clickMultiplier: 0,
+    visible: false
 }
 let UFOs = {
     button: document.getElementById("ufos"),
@@ -93,6 +102,7 @@ let UFOs = {
     cps: 25000000,
     costMultiplier: 1.15,
     clickMultiplier: 0,
+    visible: false
 }
 let galacticImports = {
     button: document.getElementById("galactic-imports"),
@@ -102,8 +112,19 @@ let galacticImports = {
     cps: 5000000,
     costMultiplier: 1.15,
     clickMultiplier: 0,
+    visible: false
 }
 upgrades = [autoClicker, curiousSibling, personWithAdhd, twiceThePens, ultraFastGamer, laserMachine, ahkFile, clickSquared, fiftyNinety, UFOs, galacticImports]
+
+function updateVisibility() {
+    for (let i = 0; i < upgrades.length; i++) {
+        if (upgrades[i].visible) {
+            upgrades[i].button.style.display = "block";
+        } else {
+            upgrades[i].button.style.display = "none";
+        }
+    }
+}
 
 for (let i = 0; i < upgrades.length; i++) {
     upgrades[i].button.addEventListener("click", () => {
@@ -118,6 +139,9 @@ for (let i = 0; i < upgrades.length; i++) {
             }
             if(upgrades[i] == clickSquared) {
                 clickIncrement = Math.pow(clickIncrement, 2)
+            }
+            if (upgrades[i].count == 1) {
+                upgrades[i + 1].visible = true
             }
             updateHTML()
         }
@@ -188,11 +212,12 @@ function updateHTML() {
     cpsCounter.innerText = niceCps
     checkIfDisabled()
     updateCosts()
+    updateVisibility()
     save()
 }
 if(localStorage.getItem("data")) {
     load()
-}
+} 
 button.addEventListener("mouseup", () => {
     clicks += clickIncrement
     updateHTML()
@@ -234,4 +259,4 @@ function main() {
     updateHTML()
 }
 
-setInterval(main, 31.25)
+setInterval(main, 31.25) // 32 fps loop
