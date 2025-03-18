@@ -58,6 +58,13 @@ body {
     cursor: pointer;
     user-select: none;
 }
+.upgrade:enabled:hover {
+    transform: scale(102%);
+}
+.upgrade:enabled:active {
+    transform: scale(98%);
+}  
+
 .upgrade:disabled {
     cursor: not-allowed;
     opacity: 0.50;

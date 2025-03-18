@@ -18,7 +18,7 @@ let curiousSibling = {
     button: document.getElementById("curious-sibling"),
     costElement: document.getElementById("curious-sibling-cost"),
     count: 0,
-    cost: 1000,
+    cost: 500,
     cps: 1,
     costMultiplier: 1.05,
     clickMultiplier: 0,
@@ -28,7 +28,7 @@ let personWithAdhd = {
     button: document.getElementById("personWithAdhd"),
     costElement: document.getElementById("personWithAdhd-cost"),
     count: 0,
-    cost: 500,
+    cost: 1000,
     cps: 7.5,
     costMultiplier: 1.10,
     clickMultiplier: 0,
@@ -78,9 +78,9 @@ let clickSquared = {
     button: document.getElementById("click-squared"),
     costElement: document.getElementById("click-squared-cost"),
     count: 0,
-    cost: 1000000000,
+    cost: 0,
     cps: 0,
-    costMultiplier: 2.5,
+    costMultiplier: 0,
     clickMultiplier: 0,
     visible: false
 }
@@ -140,6 +140,7 @@ for (let i = 0; i < upgrades.length; i++) {
             if(upgrades[i] == clickSquared) {
                 clickIncrement = Math.pow(clickIncrement, 2)
             }
+            
             if (upgrades[i].count == 1) {
                 upgrades[i + 1].visible = true
             }
@@ -147,7 +148,6 @@ for (let i = 0; i < upgrades.length; i++) {
         }
     })
 }
-
 function checkUpgradeCost(object) {
     if(clicks >= object.cost) {
         object.button.disabled = false
@@ -156,29 +156,49 @@ function checkUpgradeCost(object) {
     }
 }
 
+function makePrettyNumber(number) {
+    let prettyNumber = number
+    if (number >= 1000000000000) {
+        number = Math.round(number)
+        prettyNumber = (number / 1000000000000).toFixed(3) + "T"
+    } else if (number >= 1000000000) {
+        number = Math.round(number)
+        prettyNumber = (number / 1000000000).toFixed(3) + "B"
+    } else if (number >= 1000000) {
+        number = Math.round(number)
+        prettyNumber = (number / 1000000).toFixed(3) + "M"
+    } else {   
+        prettyNumber = Math.round(number)
+        prettyNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+    return prettyNumber
+}
+
 makeDataObject = () => {
-    let dataList = {}
+    let dataList = []
     for (let i = 0; i < upgrades.length; i++) {
-        dataList[upgrades[i].button.id] = upgrades[i].count
+        dataList.push({
+            count: upgrades[i].count,
+            cost: upgrades[i].cost,
+            visible: upgrades[i].visible
+        })
     }
-    for (let i = 0; i < upgrades.length; i++) {
-        dataList[upgrades[i].button.id + "Cost"] = upgrades[i].cost
-    }
-    dataList["clickIncrement"] = clickIncrement
-    dataList["clicks"] = clicks
-    dataList["cps"] = cps
+    dataList.push({
+        clicks: clicks,
+        cps: cps,
+        clickIncrement: clickIncrement
+    })
     return dataList
 }
-function readDataObject(dataList) {
+function readDataObject(dataList) { 
     for (let i = 0; i < upgrades.length; i++) {
-        upgrades[i].count = dataList[upgrades[i].button.id]
+        upgrades[i].count = dataList[i].count
+        upgrades[i].cost = dataList[i].cost
+        upgrades[i].visible = dataList[i].visible
     }
-    for (let i = 0; i < upgrades.length; i++) {
-        upgrades[i].cost = dataList[upgrades[i].button.id + "Cost"]
-    }
-    clickIncrement = dataList["clickIncrement"]
-    clicks = dataList["clicks"]
-    cps = dataList["cps"]
+    clicks = dataList[dataList.length - 1].clicks
+    cps = dataList[dataList.length - 1].cps
+    clickIncrement = dataList[dataList.length - 1].clickIncrement
 }
 function save() {
     let dataList = makeDataObject()
@@ -196,7 +216,7 @@ function reset() {
 
 function updateCosts() {
     for (let i = 0; i < upgrades.length; i++) {
-        upgrades[i].costElement.innerText = upgrades[i].cost
+        upgrades[i].costElement.innerText = makePrettyNumber(upgrades[i].cost)
     }       
 }       
 
@@ -205,12 +225,18 @@ function checkIfDisabled() {
         checkUpgradeCost(upgrades[i])
     }
 }
+
+let niceClicks
+let niceCps
 function updateHTML() {
     niceClicks = Math.round(clicks)
+    niceClicks = makePrettyNumber(niceClicks)
     niceCps = Math.round(cps * 10) / 10
+    niceCps = makePrettyNumber(niceCps)
     clickCounter.innerText = niceClicks
     cpsCounter.innerText = niceCps
-    checkIfDisabled()
+    clickSquared.cost = makePrettyNumber(Math.round(cps * 60 * 20))
+    checkIfDisabled()   
     updateCosts()
     updateVisibility()
     save()
@@ -255,8 +281,8 @@ addEventListener("keyup", (event) => {
 function main() {
     if(cps > 0) {
         clicks += cps / 32
+        updateHTML()
     }
-    updateHTML()
 }
 
 setInterval(main, 31.25) // 32 fps loop
