@@ -10,6 +10,12 @@ body {
 }
 .main {
     display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+.horizontal {
+    display: flex;
     flex-direction: row;
     height: 100%;
     overflow: hidden;
@@ -57,6 +63,7 @@ body {
     font-size: 14px;
     cursor: pointer;
     user-select: none;
+    display: none;
 }
 .upgrade:enabled:hover {
     transform: scale(102%);
@@ -69,7 +76,17 @@ body {
     cursor: not-allowed;
     opacity: 0.50;
 }
-.upgrades {
+.augment:disabled {
+    cursor: not-allowed;
+    opacity: 0.50;
+}
+.augment:enabled:hover {
+    transform: scale(102%);
+}
+.augment:enabled:active {
+    transform: scale(98%);
+}
+li {
     list-style-type: none;
 }
 h2 {
@@ -92,4 +109,87 @@ h2 {
 .cps {
     text-align: right;
     width: 100%;
+}
+.augments {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100%;
+    height: 30%;
+    border-top: 5px solid black;
+}   
+.store {
+    text-align: center;
+}
+.augments-store {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 5px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+ul {
+    padding-inline-start: 0px;
+}
+.augment {
+    width: 300px;
+    height: 110px;
+    background: transparent;
+    border: 3px solid black;
+    color: black;
+    margin: 5px;
+    border-radius: 4px;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+}
+.augments-store {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    height: 30px;
+    margin: 5px;
+}
+.augment-list {
+    margin-inline-start: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;    
+    list-style-type: none;
+    margin: 100%;
+    padding: 0;
+}
+.augment-head {
+    text-align: center;
+    font-size: 18px;
+}
+#augment-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#augment-list li {
+    display: inline-block;
+    margin-right: 10px;
 }
